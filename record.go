@@ -49,8 +49,7 @@ func (a *Record) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 	exit := req.Header.Get("exit")
 	if exit != "" {
-		_, _ = rw.Write([]byte("你被自己要求退出"))
-		log.Println("exit= ", exit)
+		http.Error(rw, "你被自己要求退出", http.StatusTooManyRequests)
 		return
 	}
 
